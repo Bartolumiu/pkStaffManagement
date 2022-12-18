@@ -2,4 +2,4 @@
 
 Código (bastante ineficiente) del bot "Pokémon Kingdom Staff Management"
 
-Servidor oficial: https://discord.gg/pokemonkingdom
+Servidor oficial: https://discord.gg/pokemon-kingdom

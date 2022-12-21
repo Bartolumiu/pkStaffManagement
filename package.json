@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "MGB @ Bartolumiu",
-  "license": "ISC",
+  "license": "Apache",
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
     "@napi-rs/canvas": "^0.1.25",

@@ -28,7 +28,7 @@ module.exports = (client) => {
             }
             actualCommandFolder = actualCommandFolder + 1;
         }
-        const clientId = '810942628152868905';
+        const clientId = `${process.env.clientId}`;
         const rest = new REST({ version: '9' }).setToken(process.env.token);
         try {
             console.log(chalk.cyan('[Command Handler] Started refreshing application (/) commands.'));

@@ -11,9 +11,9 @@
   "license": "Apache",
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
-    "@napi-rs/canvas": "^0.1.31",
+    "@napi-rs/canvas": "^0.1.33",
     "chalk": "^4.1.2",
-    "discord-api-types": "^0.37.24",
+    "discord-api-types": "^0.37.27",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.1",
     "mongoose": "^6.8.3"

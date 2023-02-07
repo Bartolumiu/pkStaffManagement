@@ -10,6 +10,7 @@ const guildSchema = new Schema({
     setupDate: String,
     welcomeChannelId: String,
     userRoleId: String,
+    reportChannelId: String,
 }, {
     versionKey: false
 });

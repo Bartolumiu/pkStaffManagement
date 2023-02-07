@@ -25,6 +25,10 @@ module.exports = {
             .setDescription('Cambia los roles extra del servidor')
             .addRoleOption(option => option.setName('extra_role').setDescription('Rol extra a seleccionar').setRequired(true))
             .addBooleanOption(option => option.setName('add_role').setDescription('Añadir rol o eliminar').setRequired(true)))
+        .addSubcommand(subcommand => subcommand
+            .setName('shreport')
+            .setDescription('Cambia el canal de reportes de Shiny Hunt')
+            .addChannelOption(option => option.setName('report_channel').setDescription('Canal del servidor a seleccionar').setRequired(true)))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction, client) {
         const guildProfile = await Guild.findOne({ guildId: interaction.guild.id });
@@ -114,6 +118,17 @@ module.exports = {
                     default:
                         break;
                 }
+                break;
+            case 'shreport':
+                const reportChannel = await interaction.options.getChannel('report_channel');
+                try {
+                    guildProfile.reportChannelId = reportChannel.id;
+                    guildProfile.save().catch(console.error);
+                } catch (error) {
+                    console.log(error);
+                    interaction.reply({ content: 'Ha ocurrido un error al establecer el canal de envío de reportes.', ephemeral: true});
+                }
+                interaction.reply({ content: `Se ha añadido el canal ${reportChannel.name} como canal de envío de reportes.`, ephemeral: true });
                 break;
             default:
                 break;

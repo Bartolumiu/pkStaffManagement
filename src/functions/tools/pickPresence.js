@@ -5,7 +5,12 @@ module.exports = (client) => {
         const ActivityOptions = [
             {
                 type: ActivityType.Watching,
-                text: 'Mantenimiento | v2.0.0',
+                text: 'Pokémon Kingdom | v2.0.2',
+                status: 'ONLINE'
+            },
+            {
+                type: ActivityType.Watching,
+                text: 'Staff | v2.0.2',
                 status: 'ONLINE'
             },
         ];

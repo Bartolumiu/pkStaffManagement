@@ -58,7 +58,7 @@ module.exports = {
         }
         /* Tiene el rol */
         if (roles.cache.has(guildProfile.serverRoleId)) {
-            return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedPrevio]});
+            return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedPrevio], ephemeral: true });
         }
 
         /* Tiene alguna de las etiquetas */
@@ -71,6 +71,7 @@ module.exports = {
                 await roles.add(role).catch(console.error);
                 console.log(`${etiquetas} was found!`);
                 
+		await client.channels.fetch;
                 const channel = await client.channels.cache.get('1041332048838791188');
                 channel.send({ content: `<@${interaction.user.id}>`, embeds: [embedTrue] });
 
@@ -80,6 +81,6 @@ module.exports = {
         }
 
         /* No tiene la etiqueta del servidor */
-        return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedFalse] });
+        return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedFalse], ephemeral: true });
     }
 }

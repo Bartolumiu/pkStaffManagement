@@ -93,6 +93,18 @@ module.exports = {
                 interaction.reply({ embeds: [embedUser] });
                 break;
             case 'bot':
+                /* Bot Owner */
+                let botOwner;
+                await interaction.client.application.fetch();
+                if (interaction.client.application.owner.tag === undefined) {
+                    botOwner = await interaction.client.application.owner.members.get(process.env.ownerId);
+                } else {
+                    botOwner = interaction.client.application.owner.tag;
+                }
+
+                /* Node.JS version */
+                const nodeVersion = (process.versions.node).toString();
+
                 const embedBot = new EmbedBuilder()
                     .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ dynamic: true }) })
                     .setColor('Blurple')
@@ -112,15 +124,23 @@ module.exports = {
                         },
                         {
                             name: 'Versión del bot',
-                            value: `v2.0.0`
+                            value: `v2.0.2`
                         },
                         {
                             name: 'Creador del bot',
-                            value: `-❃Bartolumiu❃-¦S͓̽Ƒ¦#0619`
+                            value: `${botOwner.user.tag}`
                         },
                         {
                             name: 'Versión de Discord.JS utilizada',
-                            value: `v14.6.0`
+                            value: `v14.9.1-dev.16827698-77191a2.0`
+                        },
+                        {
+                            name: 'Versión de Node.JS utilizada',
+                            value: `v${nodeVersion}`
+                        },
+                        {
+                            name: 'Traducción de descripciones por',
+                            value: 'https://deepl.com'
                         }
                     ])
                     .setFooter({ text: `Información del bot | ${client.user.username}`, iconURL: client.user.displayAvatarURL({ dynamic: true }) });

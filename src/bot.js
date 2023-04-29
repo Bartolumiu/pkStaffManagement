@@ -22,6 +22,7 @@ client.handleEvents();
 client.handleCommands();
 client.handleComponents();
 client.login(token);
+client.guilds.fetch();
 (async () => {
     await connect(databaseToken).catch(console.error);
 })();

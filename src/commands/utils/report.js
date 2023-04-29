@@ -18,6 +18,7 @@ module.exports = {
         const reportingUser = interaction.user;
         const member = await interaction.guild.members.fetch(reportedUser.id).catch(console.error);
         const urlMensaje = await interaction.options.getString('url_mensaje');
+	const server = interaction.guild;
 
         const guildProfile = await Guild.findOne({ guildId: interaction.guild.id });
         if (!guildProfile) return interaction.reply({ content: 'El servidor no está en la base de datos. Usa el comando `/setup` para empezar.', ephemeral: true });

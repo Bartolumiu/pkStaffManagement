@@ -20,7 +20,7 @@ module.exports = {
         const embedMD = new EmbedBuilder()
             .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })
             .setTitle('Nuevo mensaje')
-            .setDescription(mensaje)
+            .setDescription(`${mensaje}`)
             .setColor('Blurple')
             .setFooter({ text: `Mensajes Directos | ${client.user.username}`, iconURL: client.user.displayAvatarURL() });
         

@@ -21,6 +21,7 @@ module.exports = {
             .setDescription('Lista de roles extra'))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction, client) {
+        await interaction.guild.roles.fetch();
         const guildProfile = await Guild.findOne({ guildId: interaction.guild.id });
         if (!guildProfile) return interaction.reply({ content: 'El servidor no está en la base de datos. Usa el comando `/setup` para empezar.', ephemeral: true });
         const channel = interaction.channel;
@@ -104,7 +105,7 @@ module.exports = {
                 console.log(guildProfile.supportRoleId.length);
                 for (let i = 0; i < guildProfile.supportRoleId.length; i++) {
                     let j = 0;
-                    const staffRole = await interaction.guild.roles.fetch(guildProfile.supportRoleId[i]);
+                    const staffRole = await interaction.guild.roles.cache.get(guildProfile.supportRoleId[i]);
                     const staffListMembers = interaction.guild.roles.cache.get(guildProfile.supportRoleId[i]).members.map(member => member.user.tag);
                     while (j < staffListMembers.length) {
                         if (writtenStaff.includes(staffListMembers[j])) {
@@ -134,7 +135,7 @@ module.exports = {
                     .setFooter({ text: `Extra Role List | ${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL({ dynamic: true }) || client.user.displayAvatarURL()}` });
                 for (let i = 0; i < guildProfile.extraRoleId.length; i++) {
                     let j = 0;
-                    const extraRole = await interaction.guild.roles.fetch(guildProfile.extraRoleId[i]);
+                    const extraRole = await interaction.guild.roles.cache.get(guildProfile.extraRoleId[i]);
                     const extraRoleListMembers = interaction.guild.roles.cache.get(guildProfile.extraRoleId[i]).members.map(member => member.user.tag);
                     const extraRoleListFixed = extraRoleListMembers.join('\n');
                     extraList.addFields({

@@ -102,29 +102,47 @@ module.exports = {
                     .setDescription(`${currentDate}`)
                     .setColor("#ffa000")
                     .setFooter({ text: `Staff List | ${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL({ dynamic: true }) || client.user.displayAvatarURL()}` });
-                console.log(guildProfile.supportRoleId.length);
+
+                let invalidStaffRoles = "";
+                const validStaffRoles = [];
                 for (let i = 0; i < guildProfile.supportRoleId.length; i++) {
                     let j = 0;
-                    const staffRole = await interaction.guild.roles.cache.get(guildProfile.supportRoleId[i]);
-                    const staffListMembers = interaction.guild.roles.cache.get(guildProfile.supportRoleId[i]).members.map(member => member.user.tag);
-                    while (j < staffListMembers.length) {
-                        if (writtenStaff.includes(staffListMembers[j])) {
-                            staffListMembers.splice(j, 1);
-                        } else {
-                            writtenStaff.push(staffListMembers[j]);
-                            j++;
+                    const roleId = guildProfile.supportRoleId[i];
+                    const staffRole = await interaction.guild.roles.cache.get(roleId);
+
+                    if (staffRole) {
+                        validStaffRoles.push(roleId);
+                        const staffListMembers = staffRole.members.map((member) => member.user.tag);
+
+                        for (let j = 0; j < staffListMembers.length; j++) {
+                            const staffMember = staffListMembers[j];
+
+                            if (writtenStaff.includes(staffMember)) {
+                                staffListMembers.splice(j, 1);
+                                j--;
+                            } else {
+                                writtenStaff.push(staffMember);
+                            }
                         }
-                    }
-                    if (staffListMembers.length !== 0) {
-                        const staffListFixed = staffListMembers.join('\n');
-                        staffList.addFields({
-                            name: `${staffRole.name}`,
-                            value: `${staffListFixed}`
-                        });   
+
+                        if (staffListMembers.length !== 0) {
+                            const staffListFixed = staffListMembers.join('\n');
+                            staffList.addFields({
+                                name: `${staffRole.name}`,
+                                value: `${staffListFixed}`
+                            });   
+                        }
+                    } else {
+                        console.log(`Role ID ${roleId} does no longer exist. Removing from the database.`);
+                        invalidStaffRoles += `Role ID ${roleId} does no longer exist. Removing from the database.\n`;
                     }
                 };
+
+                guildProfile.supportRoleId = validStaffRoles;
+                await guildProfile.save();
+
                 channel.send({ embeds: [staffList] });
-                interaction.reply({ content: `Stafflist sent to ${channel.name}`, embeds: [staffList], ephemeral: true });
+                interaction.reply({ content: `Stafflist sent to ${channel.name}.\n${invalidRoles}`, embeds: [staffList], ephemeral: true });
                 break;
             case 'extralist':
                 const extraList = new EmbedBuilder()
@@ -133,18 +151,33 @@ module.exports = {
                     .setDescription(`${currentDate}`)
                     .setColor("#ffa000")
                     .setFooter({ text: `Extra Role List | ${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL({ dynamic: true }) || client.user.displayAvatarURL()}` });
+
+                let invalidExtraRoles = "";
+                const validExtraRoles = [];
+
                 for (let i = 0; i < guildProfile.extraRoleId.length; i++) {
-                    let j = 0;
-                    const extraRole = await interaction.guild.roles.cache.get(guildProfile.extraRoleId[i]);
-                    const extraRoleListMembers = interaction.guild.roles.cache.get(guildProfile.extraRoleId[i]).members.map(member => member.user.tag);
-                    const extraRoleListFixed = extraRoleListMembers.join('\n');
-                    extraList.addFields({
-                        name: `${extraRole.name}`,
-                        value: `${extraRoleListFixed || 'None.'}`
-                    }); 
+                    const roleId = guildProfile.extraRoleId[i];
+                    const extraRole = await interaction.guild.roles.cache.get(roleId);
+
+                    if (extraRole) {
+                        validExtraRoles.push(roleId);
+                        const extraRoleListMembers = interaction.guild.roles.cache.get(roleId).members.map(member => member.user.tag);
+                        const extraRoleListFixed = extraRoleListMembers.join('\n');
+                        extraList.addFields({
+                            name: `${extraRole.name}`,
+                            value: `${extraRoleListFixed || 'None.'}`
+                        });
+                    } else {
+                        console.log(`Role ID ${roleId} does no longer exist. Removing from the database.`);
+                        invalidExtraRoles += `Role ID ${roleId} does no longer exist. Removing from the database.`;
+                    }
                 };
+
+                guildProfile.extraRoleId = validExtraRoles;
+                await guildProfile.save();
+
                 channel.send({ embeds: [extraList] });
-                interaction.reply({ content: `Extra role list sent to ${channel.name}`, embeds: [extraList], ephemeral: true });
+                interaction.reply({ content: `Extra role list sent to ${channel.name}.\n${invalidExtraRoles}`, embeds: [extraList], ephemeral: true });
                 break;
         }
     }

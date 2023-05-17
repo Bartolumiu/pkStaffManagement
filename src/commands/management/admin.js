@@ -142,7 +142,7 @@ module.exports = {
                 await guildProfile.save();
 
                 channel.send({ embeds: [staffList] });
-                interaction.reply({ content: `Stafflist sent to ${channel.name}.\n${invalidRoles}`, embeds: [staffList], ephemeral: true });
+                interaction.reply({ content: `Stafflist sent to ${channel.name}.\n${invalidStaffRoles}`, embeds: [staffList], ephemeral: true });
                 break;
             case 'extralist':
                 const extraList = new EmbedBuilder()

@@ -21,7 +21,7 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/Bartolumiu/pkStaffManagement?color=dark-green) ![Issues](https://img.shields.io/github/issues/Bartolumiu/pkStaffManagement) ![License](https://img.shields.io/github/license/Bartolumiu/pkStaffManagement) 
+![Contributors](https://img.shields.io/github/contributors/Bartolumiu/pkStaffManagement?color=dark-green) ![Issues](https://img.shields.io/github/issues/Bartolumiu/pkStaffManagement) ![License](https://img.shields.io/github/license/Bartolumiu/pkStaffManagement) [![CodeFactor](https://www.codefactor.io/repository/github/bartolumiu/pkstaffmanagement/badge/main)](https://www.codefactor.io/repository/github/bartolumiu/pkstaffmanagement/overview/main)
 
 ## Table Of Contents
 

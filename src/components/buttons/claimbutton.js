@@ -42,7 +42,7 @@ module.exports = {
         const guildProfile = await Guild.findOne({ guildId: interaction.guild.id });
 
         if (!guildProfile) {
-            return interaction.reply({ embeds: [embedNoRole] });
+            return interaction.reply({ embeds: [embedNoRole], ephemeral: true });
         }
 
         /* Rol del servidor */
@@ -53,11 +53,11 @@ module.exports = {
 	    /* El rol está asignado */
 	    if (guildProfile.serverRoleId == null) {
             console.log('No hay rol asignado');
-            return interaction.reply({ embeds: [embedNoRole] });
+            return interaction.reply({ embeds: [embedNoRole], ephemeral: true });
         }
         /* Tiene el rol */
         if (roles.cache.has(guildProfile.serverRoleId)) {
-            return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedPrevio]});
+            return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedPrevio], ephemeral: true});
         }
 
         /* Tiene alguna de las etiquetas */
@@ -74,12 +74,12 @@ module.exports = {
                 const channel = await client.channels.cache.get('1041332048838791188');
                 channel.send({ content: `<@${interaction.user.id}>`, embeds: [embedTrue] });
 
-                return interaction.editReply({ content: `<@${interaction.user.id}>`, embeds: [embedTrue] });
+                return interaction.editReply({ content: `<@${interaction.user.id}>`, embeds: [embedTrue], ephemeral: true });
             }
             console.log(`Nope. (${etiquetas})`);
         }
 
         /* No tiene la etiqueta del servidor */
-        return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedFalse] });
+        return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedFalse], ephemeral: true });
     }
 }

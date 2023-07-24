@@ -1,12 +1,12 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
-const Guild = require('../../schemas/guild');
 const mongoose = require('mongoose');
+const Guild = require('../../schemas/guild');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('claim')
-        .setDescription('Reclamar etiqueta del servidor.'),
+    data: {
+        name: 'oldclaimbutton'
+    },
     async execute(interaction, client) {
         /* Embeds */
         const embedPrevio = new EmbedBuilder()
@@ -57,38 +57,29 @@ module.exports = {
         }
         /* Tiene el rol */
         if (roles.cache.has(guildProfile.serverRoleId)) {
-            return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedPrevio]});
+            return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedPrevio], ephemeral: true });
         }
 
         /* Tiene alguna de las etiquetas */
-        const listaEtiquetas = guildProfile.tagId;
-        console.log(interaction.user.globalName);
+        const listaEtiquetas = ['PK', '|PK|', '|ᕈК|', '|ṖḲ|', '¦ƤḰ¦', '¦ṖҚ¦', '¦PK¦ツ', 'ᵖᵏ', 'ᵖk']
         for (const etiquetas of listaEtiquetas) {
-            console.log("D");
-            console.log(`Checking ${etiquetas} against ${interaction.user.globalName}`);
-            /* Formato antiguo username */
-            if (interaction.user.discriminator === 0) {
-                if ((interaction.user.username).includes(etiquetas)) {
-                    await interaction.deferReply({ fetchReply: true });
-    
-                    await roles.add(role).catch(console.error);
-                    console.log(`${etiquetas} was found!`);
-                    return interaction.editReply({ content: `<@${interaction.user.id}>`, embeds: [embedTrue] });
-                }
-            } else {
-                /* Formato nuevo username */
-                if ((interaction.user.displayName).includes(etiquetas)) {
-                    await interaction.deferReply({ fetchReply: true });
-    
-                    await roles.add(role).catch(console.error);
-                    console.log(`${etiquetas} was found!`);
-                    return interaction.editReply({ content: `<@${interaction.user.id}>`, embeds: [embedTrue] });
-                }
+            console.log(`Checking ${etiquetas} against ${interaction.user.username}`);
+            if ((interaction.user.username).includes(etiquetas)) {
+                await interaction.deferReply({ fetchReply: true, ephemeral: true });
+
+                await roles.add(role).catch(console.error);
+                console.log(`${etiquetas} was found!`);
+                
+		await client.channels.fetch;
+                const channel = await client.channels.cache.get('1041332048838791188');
+                channel.send({ content: `<@${interaction.user.id}>`, embeds: [embedTrue] });
+
+                return interaction.editReply({ content: `<@${interaction.user.id}>`, embeds: [embedTrue], ephemeral: true });
             }
             console.log(`Nope. (${etiquetas})`);
         }
 
         /* No tiene la etiqueta del servidor */
-        return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedFalse] });
+        return interaction.reply({ content: `<@${interaction.user.id}>`, embeds: [embedFalse], ephemeral: true });
     }
 }

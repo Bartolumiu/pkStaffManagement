@@ -6,6 +6,7 @@ const guildSchema = new Schema({
     guildIcon: { type: String, required: false },
     serverRoleId: String,
     supportRoleId: Array,
+    tagId: Array,
     extraRoleId: Array,
     setupDate: String,
     welcomeChannelId: String,

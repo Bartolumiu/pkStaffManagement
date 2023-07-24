@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
+const oldclaimbutton = require('../../components/buttons/oldclaimbutton');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,8 +45,13 @@ module.exports = {
             .setLabel('Claim')
             .setCustomId('claimbutton')
             .setStyle(ButtonStyle.Primary);
+
+        const oldClaimButton = new ButtonBuilder()
+            .setLabel('Old username format')
+            .setCustomId('oldclaimbutton')
+            .setStyle(ButtonStyle.Secondary);
         
-        await interaction.channel.send({ embeds: [embedTagES, embedTagEN], components: [ new ActionRowBuilder().addComponents(claimButton) ] })
+        await interaction.channel.send({ embeds: [embedTagES, embedTagEN], components: [ new ActionRowBuilder().addComponents(claimButton), new ActionRowBuilder().addComponents(oldClaimButton) ] })
         await interaction.reply({ content: 'Sistema de etiquetas configurado correctamente.', ephemeral: true });
     }
 }

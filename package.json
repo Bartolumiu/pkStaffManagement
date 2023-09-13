@@ -13,8 +13,9 @@
     "@discordjs/rest": "^1.7.1",
     "@napi-rs/canvas": "^0.1.41",
     "chalk": "^4.1.2",
-    "discord-api-types": "^0.37.47",
+    "discord-api-types": "^0.37.51",
     "discord.js": "^14.12.1",
+
     "dotenv": "^16.3.1",
     "mongoose": "^6.11.3"
   }

@@ -10,7 +10,7 @@
   "author": "MGB @ Bartolumiu",
   "license": "Apache",
   "dependencies": {
-    "@discordjs/rest": "^2.2.0",
+    "@discordjs/rest": "^2.3.0",
     "@napi-rs/canvas": "^0.1.52",
     "chalk": "^4.1.2",
     "discord-api-types": "^0.37.83",

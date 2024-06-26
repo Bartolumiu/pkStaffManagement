@@ -17,6 +17,6 @@
     "discord.js": "^14.15.2",
 
     "dotenv": "^16.4.5",
-    "mongoose": "^8.3.5"
+    "mongoose": "^8.4.4"
   }
 }

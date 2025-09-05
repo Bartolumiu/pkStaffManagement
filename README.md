@@ -1,3 +1,10 @@
+> [!WARNING]
+> This project is no longer maintained.
+>
+> Because of that, the code from this project has unpatched dependency vulnerabilities and might be dangerous to run.
+> 
+> It is recommended that you use [Dex-chan](https://github.com/Bartolumiu/dexchan) instead.
+___
 <br/>
 <p align="center">
   <a href="https://github.com/Bartolumiu/pkStaffManagement">
